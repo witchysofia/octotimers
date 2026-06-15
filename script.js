@@ -1,7 +1,7 @@
 const REFERENCE_DATES = {
     raid40: '10/06/2026 02:00:00',
-    onyxia: '13/06/2026 04:00:00',
-    karazhan: '13/06/2026 04:00:00',
+    onyxia: '14/06/2026 04:00:00',
+    karazhan: '14/06/2026 04:00:00',
     raid20: 'inactive',
     timbermaw: 'inactive',
     eom: '24/10/2023 00:00:00',

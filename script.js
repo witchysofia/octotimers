@@ -1,9 +1,9 @@
 const REFERENCE_DATES = {
-    raid40: '24/05/2023 04:00:00',
-    onyxia: '30/05/2023 04:00:00',
-    karazhan: '31/05/2023 04:00:00',
-    raid20: '28/05/2023 04:00:00',
-    timbermaw: '20/03/2026 04:00:00',
+    raid40: '12/06/2026 04:00:00',
+    onyxia: '13/06/2026 04:00:00',
+    karazhan: '13/06/2026 04:00:00',
+    raid20: 'inactive',
+    timbermaw: 'inactive',
     eom: '24/10/2023 00:00:00',
     honor: '23/05/2023 23:00:00',
     weeklyQuests: '24/05/2023 23:00:00',
@@ -52,41 +52,110 @@ function formatTime(ms) {
     return { days, hours, mins, secs };
 }
 
+function updateCountdownDisplay(items, values, time) {
+    if (items.length === 4) {
+        values[0].textContent = time.days;
+        values[1].textContent = time.hours;
+        values[2].textContent = time.mins;
+        values[3].textContent = time.secs;
+
+        // Hide days if 0
+        items[0].style.display = time.days > 0 ? 'flex' : 'none';
+        // Hide hours if 0 AND days are also 0
+        items[1].style.display = (time.hours > 0 || time.days > 0) ? 'flex' : 'none';
+    } else if (items.length === 3) {
+        const displayHours = time.hours + (time.days * 24);
+        values[0].textContent = displayHours;
+        values[1].textContent = time.mins;
+        values[2].textContent = time.secs;
+
+        // Hide hours if 0
+        items[0].style.display = displayHours > 0 ? 'flex' : 'none';
+    }
+}
+
 function updateTimers() {
     const now = Date.now();
 
     EVENTS.forEach(event => {
+        const container = document.getElementById(`${event.id}-timer`);
+        const dateEl = document.getElementById(`${event.id}-date`);
+
+        if (event.ref === 'inactive') {
+            if (container) {
+                container.innerHTML = `<span style="font-size: 1.25rem; font-weight: 600; color: #D22B2B;">Not yet in the Game</span>`;
+            }
+            if (dateEl) {
+                dateEl.style.display = 'none';
+            }
+            if (event.id === 'eom') {
+                const nameEl = document.getElementById('eom-name');
+                const nextEl = document.getElementById('eom-next');
+                if (nameEl) nameEl.textContent = 'Inactive';
+                if (nextEl) nextEl.style.display = 'none';
+            }
+            if (event.id === 'bg') {
+                const nameEl = document.getElementById('bg-name');
+                const nextEl = document.getElementById('bg-next');
+                if (nameEl) nameEl.textContent = 'Inactive';
+                if (nextEl) nextEl.style.display = 'none';
+            }
+            if (event.id === 'dmf') {
+                const nameEl = document.getElementById('dmf-name');
+                if (nameEl) nameEl.textContent = 'Inactive';
+            }
+            return;
+        }
+
+        if (dateEl) {
+            dateEl.style.display = '';
+        }
+        if (event.id === 'eom') {
+            const nextEl = document.getElementById('eom-next');
+            if (nextEl) nextEl.style.display = '';
+        }
+        if (event.id === 'bg') {
+            const nextEl = document.getElementById('bg-next');
+            if (nextEl) nextEl.style.display = '';
+        }
+
         const nextReset = getNextReset(event.ref, event.cycle);
         const diff = nextReset - now;
         const time = formatTime(diff);
 
-        const container = document.getElementById(`${event.id}-timer`);
         if (container) {
             const items = container.querySelectorAll('.countdown-item');
             const values = container.querySelectorAll('.countdown-value');
             
-            if (items.length === 4) {
-                values[0].textContent = time.days;
-                values[1].textContent = time.hours;
-                values[2].textContent = time.mins;
-                values[3].textContent = time.secs;
-
-                // Hide days if 0
-                items[0].style.display = time.days > 0 ? 'flex' : 'none';
-                // Hide hours if 0 AND days are also 0
-                items[1].style.display = (time.hours > 0 || time.days > 0) ? 'flex' : 'none';
-            } else if (items.length === 3) {
-                const displayHours = time.hours + (time.days * 24);
-                values[0].textContent = displayHours;
-                values[1].textContent = time.mins;
-                values[2].textContent = time.secs;
-
-                // Hide hours if 0
-                items[0].style.display = displayHours > 0 ? 'flex' : 'none';
+            // Check if standard structure is present (e.g. if container was previously cleared with innerHTML)
+            if (items.length === 0) {
+                // Restore countdown layout if it was previously overwritten
+                let itemsHtml = '';
+                if (event.id === 'bg') {
+                    itemsHtml = `
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Hours</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Min</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Sec</span></div>
+                    `;
+                } else {
+                    itemsHtml = `
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Days</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Hours</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Min</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span class="countdown-label">Sec</span></div>
+                    `;
+                }
+                container.innerHTML = itemsHtml;
+                // Re-query elements
+                const newItems = container.querySelectorAll('.countdown-item');
+                const newValues = container.querySelectorAll('.countdown-value');
+                
+                updateCountdownDisplay(newItems, newValues, time);
+            } else {
+                updateCountdownDisplay(items, values, time);
             }
         }
 
-        const dateEl = document.getElementById(`${event.id}-date`);
         if (dateEl) {
             const dateObj = new Date(nextReset);
             dateEl.textContent = `Resets: ${dateObj.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })}`;

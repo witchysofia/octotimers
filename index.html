@@ -141,6 +141,28 @@
         </div>
 
         <div class="timer-grid wide-grid" id="world-events">
+            <!-- Darkmoon Faire -->
+            <a href="dmf-schedule.html" class="timer-card schedule-card">
+                <img src="assets/darkmoon.webp" alt="Darkmoon Faire">
+                <div class="card-content">
+                    <div class="subtitle">Faire Location</div>
+                    <h3 id="dmf-name">Loading...</h3>
+                    <div class="reset-info">Moves every Sunday</div>
+                    <div class="countdown" id="dmf-timer">
+                        <div class="countdown-item"><span class="countdown-value">0</span><span
+                                class="countdown-label">Days</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span
+                                class="countdown-label">Hours</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span
+                                class="countdown-label">Min</span></div>
+                        <div class="countdown-item"><span class="countdown-value">0</span><span
+                                class="countdown-label">Sec</span></div>
+                    </div>
+                    <div class="reset-date" id="dmf-date">Resets: -- ---</div>
+                    <div class="schedule-footer" style="margin-top: 2rem;">Click for schedule</div>
+                </div>
+            </a>
+
             <!-- Battleground -->
             <a href="bg-schedule.html" class="timer-card schedule-card">
                 <img src="assets/pvp.jpg" alt="Battleground">
@@ -164,7 +186,7 @@
             </a>
 
             <!-- Honor Reset -->
-            <div class="timer-card">
+            <div class="timer-card" style="display: none;">
                 <img src="assets/honorreset.jpeg" alt="Honor Reset">
                 <div class="card-content">
                     <div class="subtitle">Rank Progression</div>
@@ -184,30 +206,8 @@
                 </div>
             </div>
 
-            <!-- Darkmoon Faire -->
-            <a href="dmf-schedule.html" class="timer-card schedule-card">
-                <img src="assets/darkmoon.webp" alt="Darkmoon Faire">
-                <div class="card-content">
-                    <div class="subtitle">Faire Location</div>
-                    <h3 id="dmf-name">Loading...</h3>
-                    <div class="reset-info">Moves every Sunday</div>
-                    <div class="countdown" id="dmf-timer">
-                        <div class="countdown-item"><span class="countdown-value">0</span><span
-                                class="countdown-label">Days</span></div>
-                        <div class="countdown-item"><span class="countdown-value">0</span><span
-                                class="countdown-label">Hours</span></div>
-                        <div class="countdown-item"><span class="countdown-value">0</span><span
-                                class="countdown-label">Min</span></div>
-                        <div class="countdown-item"><span class="countdown-value">0</span><span
-                                class="countdown-label">Sec</span></div>
-                    </div>
-                    <div class="reset-date" id="dmf-date">Resets: -- ---</div>
-                    <div class="schedule-footer" style="margin-top: 2rem;">Click for schedule</div>
-                </div>
-            </a>
-
             <!-- Weekly Quests -->
-            <div class="timer-card">
+            <div class="timer-card" style="display: none;">
                 <img src="assets/questsreset.jpg" alt="Weekly Quests">
                 <div class="card-content">
                     <div class="subtitle">Quest Reset</div>
@@ -229,7 +229,7 @@
         </div>
 
         <!-- Edge of Madness -->
-        <div class="timer-grid" style="margin-top: 1.5rem;">
+        <div class="timer-grid" style="margin-top: 1.5rem; display: none;">
             <div class="timer-card" style="grid-column: 1 / -1;">
                 <img src="assets/eom.jpg" alt="Edge of Madness">
                 <div class="card-content">

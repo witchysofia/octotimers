@@ -119,9 +119,12 @@
             <a href="https://github.com/witchysofia/octotimers" target="_blank">Source Code</a>
         </div>
         <div class="footer-bottom">
-            <p>Have any issues or questions? <a href="https://discordapp.com/users/234861338432765952" target="_blank">Contact me on Discord by clicking here</a> | Not affiliated with Octo WoW or Blizzard Entertainment.</p>
+            <p>Have any issues or questions? <a href="https://discordapp.com/users/234861338432765952"
+                    target="_blank">Contact me on Discord by clicking here</a> | Not affiliated with Octo WoW or
+                Blizzard Entertainment.</p>
             <p style="opacity: 0.5; font-size: 0.7rem; max-width: 800px;">
-                All World of Warcraft images and assets are trademarks and/or copyrights of Blizzard Entertainment. This site does not claim ownership over them.
+                All World of Warcraft images and assets are trademarks and/or copyrights of Blizzard Entertainment. This
+                site does not claim ownership over them.
             </p>
         </div>
     </footer>
@@ -161,7 +164,7 @@
             const weekMs = 7 * 24 * 60 * 60 * 1000;
             const refTime = parseDate(REFERENCE_DMF);
             const nextChangeTs = refTime + (Math.floor((Date.now() - refTime) / weekMs) + 1) * weekMs;
-            nextChangeEl.textContent = new Date(nextChangeTs).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+            nextChangeEl.textContent = new Date(nextChangeTs).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
 
             let html = '';
             for (let i = 0; i < 7; i++) {
@@ -174,8 +177,8 @@
 
                 html += `
                     <tr class="${isToday ? 'current-day' : ''}">
-                        <td style="font-weight: 600;">${date.toLocaleDateString(undefined, { weekday: 'long' })}</td>
-                        <td style="color: var(--text-secondary);">${date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</td>
+                        <td style="font-weight: 600;">${date.toLocaleDateString(undefined, { weekday: 'long', timeZone: 'UTC' })}</td>
+                        <td style="color: var(--text-secondary);">${date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'UTC' })}</td>
                         <td style="font-weight: 700;">${state.location}</td>
                         <td><span class="status-badge ${isToday ? 'status-today' : ''}">${state.state}</span></td>
                     </tr>

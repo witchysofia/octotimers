@@ -1,7 +1,7 @@
 const REFERENCE_DATES = {
     raid40: '10/06/2026 02:00:00',
-    onyxia: '14/06/2026 04:00:00',
-    karazhan: '14/06/2026 04:00:00',
+    onyxia: '22/06/2026 02:00:00',
+    karazhan: '22/06/2026 02:00:00',
     raid20: 'inactive',
     timbermaw: 'inactive',
     eom: '24/10/2023 00:00:00',
@@ -126,7 +126,7 @@ function updateTimers() {
         if (container) {
             const items = container.querySelectorAll('.countdown-item');
             const values = container.querySelectorAll('.countdown-value');
-            
+
             // Check if standard structure is present (e.g. if container was previously cleared with innerHTML)
             if (items.length === 0) {
                 // Restore countdown layout if it was previously overwritten
@@ -149,7 +149,7 @@ function updateTimers() {
                 // Re-query elements
                 const newItems = container.querySelectorAll('.countdown-item');
                 const newValues = container.querySelectorAll('.countdown-value');
-                
+
                 updateCountdownDisplay(newItems, newValues, time);
             } else {
                 updateCountdownDisplay(items, values, time);
